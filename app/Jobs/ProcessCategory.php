@@ -15,10 +15,13 @@ class ProcessCategory implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $category;
+    private $category;
     
     /**
      * Create a new job instance.
+     * 
+     * @param string $category
+     * @return void
      */
     public function __construct($category)
     {

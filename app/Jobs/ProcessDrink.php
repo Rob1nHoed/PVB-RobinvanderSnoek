@@ -24,29 +24,29 @@ class ProcessDrink implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $drink;
+
     /**
      * Create a new job instance.
      *
+     * @param array $drink
      * @return void
      */
-
-    public $drink;
-
     public function __construct($drink)
     {
         $this->drink = $drink;        
     }
+
+    private $databaseIngredientsArray;
+    private $databaseCategoriesArray;
+    private $databaseGlassesArray;
     
+
     /**
      * Execute the job.
      *
      * @return void
      */
-
-    private $databaseIngredientsArray;
-    private $databaseCategoriesArray;
-    private $databaseGlassesArray;
-
     public function handle()
     {
         // Alle namen van de ingrediënten, categorieën en glazen ophalen uit de database
@@ -75,10 +75,10 @@ class ProcessDrink implements ShouldQueue
         $newDrink->image = $this->addImageData($drink);
 
         // Ingredienten toevoegen aan de cocktail
-        $ingredients = $this->addCocktailIngredientsData($drink);
+        $ingredients = $this->getCocktailIngredientsData($drink);
 
         // Measurments toevoegen aan de cocktail
-        $measurements = $this->addIngredientMeasuresData($drink);
+        $measurements = $this->getIngredientMeasuresData($drink);
 
         // De categorie van de cocktail toevoegen
         $newDrink->category = $this->addCategoryData($drink['strCategory']);
@@ -95,7 +95,7 @@ class ProcessDrink implements ShouldQueue
         // De cocktail opslaan in de database
         $newDrink->save();
 
-        // Door alle ingrediënten heen loopen
+        // Door alle ingrediënten heen loopen, en deze toevoegen aan de cocktail
         foreach($ingredients as $key=>$ingredientName)
         {
             // Als het ingrediënt nog niet in de database staat, deze toevoegen aan de database
@@ -117,7 +117,7 @@ class ProcessDrink implements ShouldQueue
      * @param array $drink
      * @return array
      */
-    private function addCocktailIngredientsData(array $drink): array
+    private function getCocktailIngredientsData(array $drink): array
     {
         // Alle ingrediënten van de drank ophalen
         $ingredients = array_filter($drink, function($key) {
@@ -143,7 +143,7 @@ class ProcessDrink implements ShouldQueue
      * @param array $drink
      * @return array
      */
-    private function addIngredientMeasuresData(array $drink): array
+    private function getIngredientMeasuresData(array $drink): array
     {
         // Alle meetwaarden van de ingrediënten opvragen
         $measurements = array_filter($drink, function($key) {
@@ -154,7 +154,7 @@ class ProcessDrink implements ShouldQueue
     }
 
     /**
-     * De afbeelding van de cocktail opslaan in de public map
+     * De categorie van de cocktail toevoegen
      * 
      * @param array $category
      * @return string
@@ -196,7 +196,7 @@ class ProcessDrink implements ShouldQueue
             // Het id tijdelijk de naam van het glas geven
             $glassId = $glass;
 
-            // toevoegen aan de array met glazen die al in de database staan
+            // Toevoegen aan de array met glazen die al in de database staan
             $this->databaseGlassesArray = array_merge($this->databaseGlassesArray, [$glass]);
         }
         else {
@@ -207,11 +207,24 @@ class ProcessDrink implements ShouldQueue
         return $glassId;
     }
 
+
+    /**
+     * Toevoegen of de drank wel of geen alcohol bevat
+     * 
+     * @param string $alcohol
+     * @return bool
+     */
     private function addAlcoholData(string $alcohol): bool
     {
         return $alcohol === 'Alcoholic'; 
     }
 
+
+    /**
+     * Toevoegen of de drank featured is, is random voor testdoeleinden
+     * 
+     * @return int
+     */
     private function addFeaturedData(): int
     {
         return rand(1, 10) == 1 
@@ -219,6 +232,13 @@ class ProcessDrink implements ShouldQueue
             : 0;
     }
 
+
+    /**
+     * De afbeelding van de drank opslaan in de public map
+     * 
+     * @param array $drink
+     * @return string
+     */
     private function addImageData(array $drink): string
     {
         // De URL en de naam van de afbeelding opslaan
@@ -240,6 +260,15 @@ class ProcessDrink implements ShouldQueue
         return $imagePath;
     }
 
+
+    /**
+     * Een nieuw ingrediënt toevoegen aan de database
+     * 
+     * @param string $ingredientName
+     * @param string|null $measurements
+     * @param Drink $newDrink
+     * @return void
+     */
     private function addNewIngredient(string $ingredientName, string|null $measurements, Drink $newDrink): void
     {
         // Dispatchen van de ProcessIngredient job

@@ -28,10 +28,6 @@ class ShowWithNameController extends Controller
             $request->page = 1;
         }
 
-        var_dump($request->page);
-
-        dd($paginatedResults);
-
         // De gebruiker met de data redirecten naar de zoekresultaten pagina
         return view('show.searchResult', [
             'drinks' => $paginatedResults,

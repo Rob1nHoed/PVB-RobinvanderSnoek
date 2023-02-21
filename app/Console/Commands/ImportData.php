@@ -43,7 +43,7 @@ class ImportData extends Command
         $apiDrinksArray = [];
 
         // Ieder letter van het alfabet doorlopen en de dranken opvragen van de API
-        foreach($letters as $key => $letter)
+        foreach($letters as $letter)
         {
 
             $response = $client->get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=' . $letter);
@@ -57,7 +57,7 @@ class ImportData extends Command
         }
 
         // Door alle dranken heen loopen
-        foreach($apiDrinksArray as $key => $drink)
+        foreach($apiDrinksArray as $drink)
         {
             // Check of de naam al in de database staat, zo ja, dan de volgende drank proberen
             if(Drink::where('name', $drink['strDrink'])->exists()) {

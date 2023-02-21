@@ -7,6 +7,7 @@ use App\Models\Drink;
 use App\Models\Ingredient;
 use App\Models\Category;
 use App\Models\Glass;
+use App\Jobs\ProcessDrink;
 use GuzzleHttp\Client;
 
 
@@ -24,7 +25,7 @@ class ImportData extends Command
      *
      * @var string
      */
-    protected $description = 'Import cocktail and ingredient data from external API';
+    protected $description = 'Import drank and ingredient data from external API';
 
     /**
      * Execute the console command.
@@ -41,7 +42,7 @@ class ImportData extends Command
 
         $apiDrinksArray = [];
 
-        // Ieder letter van het alfabet doorlopen en de cocktails opvragen van de API
+        // Ieder letter van het alfabet doorlopen en de dranken opvragen van de API
         foreach($letters as $key => $letter)
         {
 
@@ -49,22 +50,22 @@ class ImportData extends Command
             $letterData = $response->getBody()->getContents();
             $letterData = json_decode($letterData, true);
             
-            // Als er geen cocktails gevonden zijn voor de letter, dan de volgende letter proberen
+            // Als er geen dranken gevonden zijn voor de letter, dan de volgende letter proberen
             if(!empty($letterData['drinks'])) {
                 $apiDrinksArray = array_merge($apiDrinksArray, $letterData['drinks']);
             }        
         }
 
-        // Door alle cocktails heen loopen
+        // Door alle dranken heen loopen
         foreach($apiDrinksArray as $key => $drink)
         {
-            // Check of de naam al in de database staat, zo ja, dan de volgende cocktail proberen
+            // Check of de naam al in de database staat, zo ja, dan de volgende drank proberen
             if(Drink::where('name', $drink['strDrink'])->exists()) {
                 continue;
             }
             
-            // Als de cocktail niet in de database staat, dan de cocktail toevoegen aan de queue
-            // wip
+            // Als de drank niet in de database staat, dan de drank toevoegen aan de queue
+            ProcessDrink::dispatch($drink)->onQueue('drinks');
         }
     }
 }

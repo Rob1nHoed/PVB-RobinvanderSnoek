@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Http;
 
 class ConvertToMetric
 {
+    /**
+     * Converts OZ to mL
+     *
+     * @param string $measurements
+     * @return string
+     */
     public static function convertMeasurements($measurements): string
     {
         // 1/4, 1/2, 3/4 vervangen door decimale getallen

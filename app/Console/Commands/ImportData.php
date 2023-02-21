@@ -39,20 +39,23 @@ class ImportData extends Command
 
         // Alle letters van het alfabet in een array zetten 
         $letters = range('a', 'z');
+        $numbers = range('0', '9');
+
+        $mixed = array_merge($letters, $numbers);
 
         $apiDrinksArray = [];
 
         // Ieder letter van het alfabet doorlopen en de dranken opvragen van de API
-        foreach($letters as $letter)
+        foreach($mixed as $character)
         {
 
-            $response = $client->get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=' . $letter);
-            $letterData = $response->getBody()->getContents();
-            $letterData = json_decode($letterData, true);
+            $response = $client->get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=' . $character);
+            $characterData = $response->getBody()->getContents();
+            $characterData = json_decode($characterData, true);
             
             // Als er geen dranken gevonden zijn voor de letter, dan de volgende letter proberen
-            if(!empty($letterData['drinks'])) {
-                $apiDrinksArray = array_merge($apiDrinksArray, $letterData['drinks']);
+            if(!empty($characterData['drinks'])) {
+                $apiDrinksArray = array_merge($apiDrinksArray, $characterData['drinks']);
             }        
         }
 

@@ -106,8 +106,11 @@ class ProcessDrink implements ShouldQueue
                 continue;
             }
 
-            $measurements = ConvertToMetric::convertMeasurements($measurements['strMeasure' . substr($key, -1)], 'oz');
-            $newDrink->ingredients()->attach(Ingredient::where('name', $ingredientName)->first()->id, ['measure' => $measurements]);
+            if(strpos($measurements['strMeasure' . substr($key, -1)], 'oz')) {
+                $measurements['strMeasure' . substr($key, -1)] = ConvertToMetric::convertMeasurements($measurements['strMeasure' . substr($key, -1)]);
+            }
+
+            $newDrink->ingredients()->attach(Ingredient::where('name', $ingredientName)->first()->id, ['measure' => $measurements['strMeasure' . substr($key, -1)]]);
         }
     }
 

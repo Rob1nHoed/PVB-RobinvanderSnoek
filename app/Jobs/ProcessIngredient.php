@@ -21,6 +21,7 @@ class ProcessIngredient implements ShouldQueue
     private $measurements;
     private $newDrink;
 
+
     /**
      * Create a new job instance.
      *
@@ -139,11 +140,8 @@ class ProcessIngredient implements ShouldQueue
      */
     private function AddMeasurementsForIngredient(string|null $measurements): string|null
     {  
-        // Als de measurements in oz staan, omzetten naar ml
-        if(strpos($measurements, 'oz')) {
-            return ConvertToMetric::convertMeasurements($measurements);
-        }
-
-        return $measurements;
+        return strpos($measurements, 'oz') 
+            ? ConvertToMetric::convertMeasurements($measurements) 
+            : $measurements;
     }
 }

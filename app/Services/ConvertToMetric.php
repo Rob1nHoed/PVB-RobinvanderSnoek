@@ -24,8 +24,6 @@ class ConvertToMetric
         }
 
         // De measurements afronden op naar mL    
-        $measurements = round($measurements) . ' ml';
-
-        return $measurements;
+        return round($measurements) . ' ml';
     }
 }

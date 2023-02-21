@@ -146,11 +146,9 @@ class ProcessDrink implements ShouldQueue
     private function getIngredientMeasuresData(array $drink): array
     {
         // Alle meetwaarden van de ingrediënten opvragen
-        $measurements = array_filter($drink, function($key) {
+        return  array_filter($drink, function($key) {
             return strpos($key, 'strMeasure') !== false;
         }, ARRAY_FILTER_USE_KEY);
-
-        return $measurements;
     }
 
     /**

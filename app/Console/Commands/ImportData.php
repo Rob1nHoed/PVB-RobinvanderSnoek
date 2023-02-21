@@ -38,7 +38,7 @@ class ImportData extends Command
         $client = new Client();
 
         // Alle letters van het alfabet in een array zetten 
-        $letters = range('a', 'a');
+        $letters = range('a', 'z');
 
         $apiDrinksArray = [];
 

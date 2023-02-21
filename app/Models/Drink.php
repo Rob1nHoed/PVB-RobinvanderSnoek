@@ -42,7 +42,7 @@ class Drink extends Model
     }
 
     // Een scope maken voor paginatie
-    public function scopePaginate($query, $perPage = 10)
+    public function scopePaginate($query, $perPage = 40)
     {
         return $query->simplePaginate($perPage);
     }

@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DrinkController;
+use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\SearchWithIngredientsController;
+use App\Http\Controllers\ShowWithIngredientsController;
+use App\Http\Controllers\ShowWithNameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomepageController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/drink/{id}', [DrinkController::class, 'index'])->name('drink');
+Route::get('/ingredient/{id}', [IngredientController::class, 'index'])->name('ingredient');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/searchWithIngredients', [SearchWithIngredientsController::class, 'index'])->name('search');
+
+Route::post('/search/results', [ShowWithNameController::class, 'index'])->name('search');
+Route::post('/search/results', [ShowWithIngredientsController::class, 'index'])->name('searchWithIngredients');
 
 require __DIR__.'/auth.php';

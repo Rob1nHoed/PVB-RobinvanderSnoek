@@ -48,7 +48,6 @@ class ImportData extends Command
         // Ieder letter van het alfabet doorlopen en de dranken opvragen van de API
         foreach($mixed as $character)
         {
-
             $response = $client->get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=' . $character);
             $characterData = $response->getBody()->getContents();
             $characterData = json_decode($characterData, true);

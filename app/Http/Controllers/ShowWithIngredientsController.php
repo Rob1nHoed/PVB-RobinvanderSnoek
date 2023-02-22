@@ -12,54 +12,31 @@ class ShowWithIngredientsController extends Controller
         // Alle geselecteerde ingredienten ophalen
         $ingredients = request('ingredients');
 
-        if($request->drinks == null) {
-            // Als er geen ingredienten zijn geselecteerd, maak dan een lege collectie aan
-            if(empty($ingredients)){
-                $drinks = [];
-            }
-            else{
-                // Haal alle dranken op die de geselecteerde ingredienten bevatten
-                $drinks = Drink::with('ingredients')->whereHas('ingredients', function ($query) use ($ingredients) {
-                    $query->whereIn('id', $ingredients);
-                });
-                
-                // Door alle dranken heen loopen en kijken of ze ingredienten bevatten die niet zijn geselecteerd
-                foreach ($drinks as $key => $drink) {
-                    // Door alle ingredienten van de drank heen loopen en kijken of ze in de geselecteerde ingredienten zitten
-                    foreach ($drink['ingredients'] as $ingredient) {
-                        // Als ze niet in de geselecteerde ingredienten zitten, dan de drank uit de collectie halen
-                        if (!in_array($ingredient['id'], $ingredients)) {
-                            unset($drinks[$key]);
-                        }
+        // Als er geen ingredienten zijn geselecteerd, maak dan een lege collectie aan
+        if(empty($ingredients)){
+            $drinks = [];
+        }
+        else{
+            // Haal alle dranken op die de geselecteerde ingredienten bevatten
+            $drinks = Drink::with('ingredients')->whereHas('ingredients', function ($query) use ($ingredients) {
+                $query->whereIn('id', $ingredients);
+            })->get();
+            
+            // Door alle dranken heen loopen en kijken of ze ingredienten bevatten die niet zijn geselecteerd
+            foreach ($drinks as $key => $drink) {
+                // Door alle ingredienten van de drank heen loopen en kijken of ze in de geselecteerde ingredienten zitten
+                foreach ($drink['ingredients'] as $ingredient) {
+                    // Als ze niet in de geselecteerde ingredienten zitten, dan de drank uit de collectie halen
+                    if (!in_array($ingredient['id'], $ingredients)) {
+                        unset($drinks[$key]);
                     }
                 }
             }
         }
-        else {
-            dd('test');
-        }
-        
-        $drinksPerPage = 40; // Should be in a config file
-        $resultCount = $drinks->count();
-        $paginatedResults = $drinks->paginate($drinksPerPage, ['*'], 'page', $request->page);
-        $totalPages = ceil($resultCount / $drinksPerPage);
-
-        if ($request->page < 1) {
-            $request->page = 1;
-        }
-
-        /**
-         * TODO:
-         * Verwerk pagination van 'ShowWithNameController' ook in deze controller
-         * Misschien een aparte Service?
-         */
 
         // De gebruiker met de data redirecten naar de zoekresultaten pagina
         return view('show.searchResult', [
-            'drinks' => $paginatedResults,
-            'count' => $resultCount,
-            'page' => $request->page,
-            'allDrinks' => json_encode($drinks),
+            'drinks' => $drinks,
         ]);
     }
 }

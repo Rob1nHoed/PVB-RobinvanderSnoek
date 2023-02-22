@@ -36,7 +36,7 @@ class ShowResults extends Component
     {
         // De view updaten met de ingredienten die overeenkomen met de zoekterm, met gebruik van de paginatie
         return view('livewire.show-results', [
-            'paginatedDrinks' => $this->drinks->forPage($this->pageNumber, 20),
+            'paginatedDrinks' => $this->drinks->forPage($this->pageNumber, 40),
         ]);
     }
 }

@@ -13,7 +13,7 @@ class SearchWithIngredientsController extends Controller
         $ingredients = Ingredient::allIngredients();
 
         // De gebruiker met de data redirecten naar de zoekpagina met ingredienten
-        return view('searchWithIngredients', [
+        return view('search.withIngredients', [
             'ingredients' => $ingredients,
         ]);
     }

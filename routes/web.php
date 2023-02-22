@@ -28,6 +28,6 @@ Route::get('/ingredient/{id}', [IngredientController::class, 'index'])->name('sh
 Route::get('/searchWithIngredients', [SearchWithIngredientsController::class, 'index'])->name('search.withIngredients');
 
 Route::post('/search/results', [ShowWithNameController::class, 'index'])->name('show.searchResult');
-Route::post('/search/resultsFromIngredients', [ShowWithIngredientsController::class, 'index'])->name('show.searchResultFromIngredients');
+Route::get('/search/resultsFromIngredients', [ShowWithIngredientsController::class, 'index'])->name('show.searchResultFromIngredients');
 
 require __DIR__.'/auth.php';

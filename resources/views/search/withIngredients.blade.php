@@ -1,7 +1,5 @@
 <x-app-layout>
-    <div class="">
-        <h1>
-            Testing123
-        </h1>
+    <div class="py-12">
+        @livewire('search-ingredients', ['ingredients' => $ingredients])
     </div>
 </x-app-layout>

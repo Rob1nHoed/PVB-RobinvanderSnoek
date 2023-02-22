@@ -1,5 +1,5 @@
 <div>    
-    {{-- Alle ingredienten tonen --}}
+    {{-- Zoekbalk --}}
     <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
@@ -18,7 +18,7 @@
         </div>
     </div>    
 
-    {{-- next and previous page --}}
+    {{-- Vorige/Volgende pagina buttons --}}
     <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
         <div class=" overflow-hidden sm:rounded-lg flex justify-center">
             <div class="flex justify-center pt-10 px-2">
@@ -34,13 +34,13 @@
         </div>
     </div>
 
+    {{-- Alle dranken tonen --}}
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-2">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-center font-bold text-5xl py-5">
                         @if($drinks)
                             {{ $drinks->count() }} drinks found
-                            
                         @else
                             No drinks found
                         @endif
@@ -66,7 +66,7 @@
     </div>
 
     
-    {{-- next and previous page --}}
+    {{-- Vorige/Volgende pagina buttons --}}
     <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
         <div class=" overflow-hidden sm:rounded-lg flex justify-center">
             <div class="flex justify-center pt-10 px-2">

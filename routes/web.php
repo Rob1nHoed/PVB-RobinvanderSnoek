@@ -25,7 +25,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('home');
 Route::get('/drink/{id}', [DrinkController::class, 'index'])->name('show.drink');
 Route::get('/ingredient/{id}', [IngredientController::class, 'index'])->name('show.ingredient');
 
-Route::get('/searchWithIngredients', [SearchWithIngredientsController::class, 'index'])->name('search.ingredients');
+Route::get('/searchWithIngredients', [SearchWithIngredientsController::class, 'index'])->name('search.withIngredients');
 
 Route::post('/search/results', [ShowWithNameController::class, 'index'])->name('show.searchResult');
 Route::post('/search/resultsFromIngredients', [ShowWithIngredientsController::class, 'index'])->name('show.searchResultFromIngredients');

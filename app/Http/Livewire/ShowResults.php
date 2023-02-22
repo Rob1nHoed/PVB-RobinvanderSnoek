@@ -13,11 +13,13 @@ class ShowResults extends Component
 
     public $pageNumber = 1;  
     public $drinks = [];  
+    private $perPage = 40;
 
     // In het begin alle ingredienten ophalen en in de variabele $ingredients zetten
     public function mount($drinks)
     {
         $this->drinks = $drinks;
+        $this->perPage = config('pagination.perPage');
     }
 
     // Volgende pagina

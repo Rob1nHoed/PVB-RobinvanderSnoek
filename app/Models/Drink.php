@@ -46,4 +46,9 @@ class Drink extends Model
     {
         return $query->simplePaginate($perPage);
     }
+
+    public function scopeLike($query, $name)
+    {
+        return $query->where('name', 'like', '%' . $name . '%');
+    }
 }

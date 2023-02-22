@@ -13,12 +13,14 @@ class SearchIngredients extends Component
     public $ingredients = [];
     public $search = '';
     public $selected = [];
-    public $pageNumber = 1;    
+    public $pageNumber = 1;
+    private $perPage = 40;
 
     // In het begin alle ingredienten ophalen en in de variabele $ingredients zetten
     public function mount($ingredients)
     {
         $this->ingredients = $ingredients;
+        $this->perPage = config('pagination.perPage');
     }
 
     // Volgende pagina
@@ -55,7 +57,7 @@ class SearchIngredients extends Component
     {
         // De view updaten met de ingredienten die overeenkomen met de zoekterm, met gebruik van de paginatie
         return view('livewire.search-ingredients', [
-           'searchResults' => Ingredient::where('name', 'like', '%' . $this->search . '%')->paginate(20, ['*'], 'page', $this->pageNumber),
+           'searchResults' => Ingredient::where('name', 'like', '%' . $this->search . '%')->paginate($this->perPage, ['*'], 'page', $this->pageNumber),
         ]);
     }
 }

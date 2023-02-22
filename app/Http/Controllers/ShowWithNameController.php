@@ -12,27 +12,11 @@ class ShowWithNameController extends Controller
         // De naam van de drink uit de request halen
         $name = $request->name;
 
-        // De drink opzoeken in de database
-        $drinks = Drink::where('name', 'like', '%' . $name . '%'); // Should be in scope?
-        $drinksPerPage = 40; // Should be in a config file
-        $totalResults = $drinks->count();
-        $paginatedResults = $drinks->paginate($drinksPerPage, ['*'], 'page', $request->page);
-        $totalPages = ceil($totalResults / $drinksPerPage);
-        
-
-        /** TODO
-         *  Add this to a service, or at the other controller
-         */
-
-        if ($request->page < 1) {
-            $request->page = 1;
-        }
+        $drinks = Drink::like($name)->get();
 
         // De gebruiker met de data redirecten naar de zoekresultaten pagina
         return view('show.searchResult', [
-            'drinks' => $paginatedResults,
-            'count' => $totalResults,
-            'page' => $request->page
+            'drinks' => $drinks,
         ]);
     }
 }

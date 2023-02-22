@@ -29,16 +29,11 @@ class ShowWithIngredientsController extends Controller
                     // Als ze niet in de geselecteerde ingredienten zitten, dan de drank uit de collectie halen
                     if (!in_array($ingredient['id'], $ingredients)) {
                         unset($drinks[$key]);
+                        continue 2;
                     }
                 }
             }
         }
-        
-        /**
-         * TODO:
-         * Verwerk pagination van 'ShowWithNameController' ook in deze controller
-         * Misschien een aparte Service?
-         */
 
         // De gebruiker met de data redirecten naar de zoekresultaten pagina
         return view('show.searchResult', [

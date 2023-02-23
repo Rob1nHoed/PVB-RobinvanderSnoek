@@ -13,7 +13,7 @@ class ShowResults extends Component
 
     public $pageNumber = 1;  
     public $drinks = [];  
-    private $perPage = 40;
+    public $perPage = 20; // Standaard aantal resultaten per pagina
 
     // In het begin alle ingredienten ophalen en in de variabele $ingredients zetten
     public function mount($drinks)
@@ -38,7 +38,7 @@ class ShowResults extends Component
     {
         // De view updaten met de ingredienten die overeenkomen met de zoekterm, met gebruik van de paginatie
         return view('livewire.show-results', [
-            'paginatedDrinks' => $this->drinks->forPage($this->pageNumber, 40),
+            'paginatedDrinks' => $this->drinks->forPage($this->pageNumber, $this->perPage),
         ]);
     }
 }

@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    {{-- next and previous page --}}
+    {{-- Vorige/volgende pagina buttons --}}
     <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
         <div class=" overflow-hidden sm:rounded-lg flex justify-center">
             <div class="flex justify-center pt-10 px-2">
@@ -39,11 +39,13 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-2">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
+                {{-- Titel --}}
                 <div class="p-5 pb-10">
                     <h1 class="text-center font-bold text-6xl">
                         Selecteer ingredriënten
                     </h1>
                 </div>
+                {{-- Alle ingredienten --}}
                 <div class="grid grid-cols-4 gap-1">
                     @foreach ($searchResults as $ingredient)
                         <div class="rounded-lg p-4">
@@ -66,7 +68,7 @@
         </div>
     </div>
     
-    {{-- next and previous page --}}
+    {{-- Volgende/vorige pagina --}}
     <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
         <div class=" overflow-hidden sm:rounded-lg flex justify-center">
             <div class="flex justify-center pt-10 px-2">

@@ -13,16 +13,18 @@ class SwapMeasureType extends Component
     public $metric;
     public $ingredients;
 
+    // De measures die worden meegegeven aan de livewire component
     public function mount($measure)
     {
         $this->measures = $measure;
         $this->metric = $measure;
     }
 
-
     public function swapMeasureType()
     {
-         if($this->measureType == 'imperial'){
+        // If: Als de measureType gelijk is aan imperial, dan resetten we de measures naar de originele measures
+        // Else: Als de measureType gelijk is aan metric, dan converteren we de measures naar imperial
+        if($this->measureType == 'imperial'){
              $this->resetToMetric();
         }else{
             $this->convertToImperial($this->measures);

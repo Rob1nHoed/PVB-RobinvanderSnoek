@@ -1,9 +1,9 @@
 <x-app-layout>
+    {{-- Informatie over ingredient --}}
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 bg-white border-b border-gray-200">
-                    {{-- Informatie over ingredient --}}
                     <div class="sm:flex">
                             
                         <div class="flex items-center justify-center sm:justify-start">
@@ -12,6 +12,7 @@
                         <div class="px-6 pt-6">
                             <h1 class="text-4xl font-bold text-center">{{ $ingredient->name }}</h1>
                             
+                            {{-- Categorien --}}
                             <div class="pt-10 text-center">
                                 <h1 class="text-2xl font-bold sm:text-left">
                                     Categories:
@@ -36,7 +37,7 @@
         </div>
     </div>
 
-    {{-- cocktails waar deze ingredient wordt gebruikt --}}
+    {{-- Drankjes waar dit ingredient wordt gebruikt --}}
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -54,7 +55,6 @@
                                 </div>
                                 <div class="flex justify-center pt-2">
                                     <h1 class="text-center font-bold text-2xl">
-                                        <!-- get measure from the pivot table-->
                                         {{ $drink->name }}
                                     </h1>
                                 </div>

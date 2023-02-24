@@ -1,4 +1,5 @@
 ## Setup
+Dit zijn de basic setup commands, voor meer specificaties kijk in het bestand [setup.md](./docs/setup.md)
 
 #### Setup commands
 ```

@@ -34,7 +34,7 @@ class SwapMeasureType extends Component
     private function convertToImperial($measures)
     {
         $this->measureType = 'imperial';
-            
+
         // De measures veranderen naar Imperial measures
         $this->measures = ConvertToImperial::convertToImperial($measures);
     }

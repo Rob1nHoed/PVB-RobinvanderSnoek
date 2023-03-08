@@ -11,6 +11,7 @@ class SwapMeasureType extends Component
 
     public $measure;
     public $metric;
+    public $imperial;
     public $ingredients;
 
     // De measures die worden meegegeven aan de livewire component
@@ -18,6 +19,7 @@ class SwapMeasureType extends Component
     {
         $this->measures = $measure;
         $this->metric = $measure;
+        $this->imperial = ConvertToImperial::convertToImperial($measure);
     }
 
     public function swapMeasureType()
@@ -36,12 +38,12 @@ class SwapMeasureType extends Component
         $this->measureType = 'imperial';
 
         // De measures veranderen naar Imperial measures
-        $this->measures = ConvertToImperial::convertToImperial($measures);
+        $this->measures = $this->imperial;
     }
 
     public function resetToMetric()
     {
-        // De measures resetten naar de originele measures i.p.v weer converten, scheelt een hoop rekenwerk
+        // De measures resetten naar de originele measures
         $this->measureType = 'metric';
         $this->measures = $this->metric;
     }

@@ -4,7 +4,9 @@
         <div class="container mx-auto px-4 py-4 flex">
             <div class="w-100">
                 <div class="flex items">
-                    <button wire:click="swapMeasureType" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Switch to {{ $measureType == 'metric' ? 'imperial' : 'metric' }}</button>
+                    <button wire:click="swapMeasureType" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Switch to {{ $measureType == 'metric' ? 'imperial' : 'metric' }}
+                    </button>
                 </div>
             </div>
         </div>

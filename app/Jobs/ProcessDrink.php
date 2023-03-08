@@ -59,9 +59,9 @@ class ProcessDrink implements ShouldQueue
     }
 
     /**
-     * Voegt een nieuwe categorie toe aan de database
+     * Voegt een nieuwe drink toe aan de database
      * 
-     * @param string $categoryName
+     * @param string $drink
      * @return void
      */
     private function addNewDrink($drink): void
